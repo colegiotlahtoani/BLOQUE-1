@@ -9,7 +9,8 @@
         :root {
             --valid: #00c853;    /* Verde vibrante */
             --invalid: #ff1744;  /* Rojo intenso */
-            --used: #ffab00;     /* Amarillo brillante */
+            --used: #FF8C00;     /* Naranja (ya utilizado) - Cambiado a naranja */
+            --warning: #FFD700;  /* Amarillo oro (historial borrado) - Cambiado a amarillo */
             --dark: #212121;
             --light: #ffffff;
         }
@@ -89,7 +90,7 @@
             margin: 25px 0;
             padding: 20px;
             border-radius: 10px;
-            font-size: 22px;  /* Texto más grande */
+            font-size: 22px;
             font-weight: bold;
             display: none;
             animation: fadeIn 0.5s;
@@ -115,9 +116,16 @@
         }
         
         .used {
-            background-color: rgba(255, 171, 0, 0.15);
+            background-color: rgba(255, 140, 0, 0.15);  /* Naranja */
             color: var(--used);
             border-left: 5px solid var(--used);
+            display: block;
+        }
+        
+        .warning {
+            background-color: rgba(255, 215, 0, 0.15);  /* Amarillo */
+            color: var(--warning);
+            border-left: 5px solid var(--warning);
             display: block;
         }
         
@@ -221,7 +229,7 @@
             if (idsValidos.has(idInput)) {
                 if (idsUsados.has(idInput)) {
                     output.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ¡YA REGISTRADO!';
-                    output.className = "output used";
+                    output.className = "output used";  /* Ahora en naranja */
                 } else {
                     output.innerHTML = '<i class="fas fa-check-circle"></i> ¡VÁLIDO!';
                     output.className = "output valid";
@@ -244,7 +252,8 @@
                 actualizarContadores();
                 const output = document.getElementById("output");
                 output.innerHTML = '<i class="fas fa-check"></i> Historial borrado';
-                output.className = "output valid";
+                output.className = "output warning";  /* Ahora en amarillo */
+                setTimeout(() => output.style.display = "none", 3000);
             }
         }
         
